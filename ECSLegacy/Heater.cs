@@ -2,14 +2,25 @@
 {
     public class Heater : IHeater
     {
+        private IConsole _console;
+
+        public Heater()
+        {
+            _console = new Console();
+        }
+        public Heater(IConsole console)
+        {
+            _console = console;
+            
+        }
         public void TurnOn()
         {
-            System.Console.WriteLine("Heater is on");
+            _console.WriteLine("Heater is on");
         }
 
         public void TurnOff()
         {
-            System.Console.WriteLine("Heater is off");
+            _console.WriteLine("Heater is off");
         }
 
         public bool RunSelfTest()
