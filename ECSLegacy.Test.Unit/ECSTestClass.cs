@@ -48,7 +48,7 @@ namespace ECSLegacy.Test.Unit
             Assert.AreEqual(_ecsSystem.GetCurTemp(), temp);
         }
 
-        [Category("Regulate")]
+        [Category("Regulate - Heater off")]
         [TestCase(10, 10), Description("Temperature is equal to threshold")]
         [TestCase(11, 10)]
         [TestCase(20, 0)]
@@ -64,7 +64,7 @@ namespace ECSLegacy.Test.Unit
             Assert.AreEqual(_heater.HeaterOn, false);
         }
 
-        [Category("Regulate")]
+        [Category("Regulate - Heater on")]
         [TestCase(8, 10)]
         [TestCase(-4, 0)]
         [TestCase(-10, -5)]
@@ -77,6 +77,36 @@ namespace ECSLegacy.Test.Unit
             _ecsSystem.Regulate();
             //Assert
             Assert.AreEqual(_heater.HeaterOn, true);
+        }
+
+        [Category("Regulate - window closed")]
+        [TestCase(20), Description("temp on Threshold")]
+        [TestCase(15)]
+        [TestCase(0)]
+        [TestCase(-10)]
+        public void Regulate_TemperatureUnderWindowThreshold_ECSWindowClosed(int temp)
+        {
+            //Arrange
+            _tempSensor.Temp = temp;
+
+            //Act
+            _ecsSystem.Regulate();
+            //Assert
+            Assert.AreEqual(_window.WindowOpen, false);
+        }
+
+        [Category("Regulate - window open")]
+        [TestCase(25)]
+        [TestCase(100)]
+        public void Regulate_TemperatureOverWindowThreshold_ECSWindowOpen(int temp)
+        {
+            //Arrange
+            _tempSensor.Temp = temp;
+
+            //Act
+            _ecsSystem.Regulate();
+            //Assert
+            Assert.AreEqual(_window.WindowOpen, true);
         }
     }
 }
