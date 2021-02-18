@@ -5,7 +5,7 @@ using NUnit.Framework;
 
 namespace ECSLegacy.Test.Unit
 {
-    public class ECSLegacyTestClass
+    public class ECSTestClass
     {
         private ECS _ecsSystem;
         private FakeHeater _heater;
