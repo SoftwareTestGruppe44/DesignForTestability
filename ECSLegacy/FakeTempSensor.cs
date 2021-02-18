@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ECSLegacy
 {
-    class FakeTempSensor : ITempSensor
+    public class FakeTempSensor : ITempSensor
     {
         public int Temp { get; set; }
         public int GetTemp()
