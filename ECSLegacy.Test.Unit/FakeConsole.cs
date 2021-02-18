@@ -1,4 +1,4 @@
-﻿namespace ECSLegacy
+﻿namespace ECSLegacy.Test.Unit
 {
     public class FakeConsole : IConsole
     {

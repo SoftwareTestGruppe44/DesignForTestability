@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ECSLegacy
+﻿namespace ECSLegacy.Test.Unit
 {
     public class FakeTempSensor : ITempSensor
     {

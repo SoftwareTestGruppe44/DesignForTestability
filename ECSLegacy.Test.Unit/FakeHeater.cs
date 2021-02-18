@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ECSLegacy
+﻿namespace ECSLegacy.Test.Unit
 {
     public class FakeHeater : IHeater
     {
         public bool HeaterOn { get; private set; }
-        
+
         public void TurnOn()
         {
             System.Console.WriteLine("Fake Heater is on");
