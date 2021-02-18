@@ -6,7 +6,9 @@ namespace ECSLegacy
     {
         static void Main(string[] args)
         {
-            var ecs = new ECS(28);
+            ITempSensor tempsensor = new TempSensor();
+            IHeater heater = new Heater();
+            var ecs = new ECS(28, tempsensor, heater);
 
             ecs.Regulate();
 
