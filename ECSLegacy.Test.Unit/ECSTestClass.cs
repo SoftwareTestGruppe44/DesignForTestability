@@ -10,13 +10,15 @@ namespace ECSLegacy.Test.Unit
         private ECS _ecsSystem;
         private FakeHeater _heater;
         private FakeTempSensor _tempSensor;
+        private FakeWindow _window;
 
         [SetUp]
         public void Setup()
         {
             _tempSensor = new FakeTempSensor();
             _heater = new FakeHeater();
-            _ecsSystem = new ECS(10, _tempSensor, _heater);
+            _window = new FakeWindow();
+            _ecsSystem = new ECS(10,20, _tempSensor, _heater, _window);
         }
 
         [Category("Set/Get Threshold")]
