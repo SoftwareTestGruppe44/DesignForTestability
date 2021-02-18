@@ -2,17 +2,28 @@
 {
     public class FakeHeater : IHeater
     {
+        private IConsole _console;
         public bool HeaterOn { get; private set; }
+
+        public FakeHeater()
+        {
+            _console = new Console();
+        }
+        public FakeHeater(IConsole console)
+        {
+            _console = console;
+
+        }
 
         public void TurnOn()
         {
-            System.Console.WriteLine("Fake Heater is on");
+            _console.WriteLine("Fake Heater is on");
             HeaterOn = true;
         }
 
         public void TurnOff()
         {
-            System.Console.WriteLine("Fake Heater is off");
+            _console.WriteLine("Fake Heater is off");
             HeaterOn = false;
         }
 
