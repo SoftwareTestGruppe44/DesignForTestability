@@ -8,12 +8,12 @@ namespace DoorControlSystem
     {
         readonly List<int> _idList = new List<int>();
 
-        bool ValidateEntryRequest(int id)
+        public bool ValidateEntryRequest(int id)
         {
             return _idList.Contains(id);
         }
 
-        void AddId(int id)
+        public void AddId(int id)
         {
             _idList.Add(id);
         }
