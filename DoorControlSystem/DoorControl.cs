@@ -24,6 +24,7 @@
             _validation = validation;
             _state = States.DoorClosed;
         }
+
         public void RequestEntry(int id)
         {
             //User validation
@@ -51,11 +52,5 @@
             _state = States.DoorClosed;
         }
 
-        public void DoorBreached()
-        {
-            _door.Close();
-            _alarm.RaiseAlarm();
-            _state = States.DoorBreached;
-        }
     }
 }
