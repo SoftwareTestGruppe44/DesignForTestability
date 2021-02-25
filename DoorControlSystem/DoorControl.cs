@@ -45,19 +45,24 @@ namespace DoorControlSystem
 
         public void DoorOpened()
         {
-            if (_door.Close())
+            if (_door.DoorIsOpen == false)
             {
                 _state = States.DoorClosing;
-            }
-            else
-            {
-                _state = States.DoorBreached;
-                _alarm.RaiseAlarm();
+                _door.Close();
+                if (_door.DoorIsOpen == true)
+                {
+                    _state = States.DoorBreached;
+                    _alarm.RaiseAlarm();
+                }
             }
         }
 
         public void DoorClosed()
         {
+            if (_door.DoorIsOpen == true)
+            {
+
+            }
             _state = States.DoorClosed;
         }
 

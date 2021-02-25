@@ -4,7 +4,7 @@
     {
         public DoorControl Control { get; set; }
         public bool DoorIsOpen { get; set; }
-        bool Open();
-        bool Close();
+        void Open();
+        void Close();
     }
 }

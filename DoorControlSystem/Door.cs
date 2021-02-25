@@ -7,21 +7,27 @@ namespace DoorControlSystem
     {
         public DoorControl Control { get; set; }
         public bool DoorIsOpen { get; set; } = false;
-        public bool Open()
+        public void Open()
         {
-            if (DoorIsOpen == false) return false;
-            DoorIsOpen = true;
-            Control.DoorOpened();
-            Console.WriteLine("Door Opened");
-            return true;
+            if (DoorIsOpen == false)
+            {
+                DoorIsOpen = true;
+                Console.WriteLine("Door Opened");
+                Control.DoorOpened();
+            }
+            else
+            {
+                Console.WriteLine("Door couldnt open");
+            }
         }
-        public bool Close()
+        public void Close()
         {
-            if (DoorIsOpen == false) return false;
-            DoorIsOpen = false;
-            Control.DoorClosed();
+            if (DoorIsOpen == true)
+            {
+                DoorIsOpen = false;
+                Control.DoorClosed();
+            }
             Console.WriteLine("Door Close");
-            return true;
         }
     }
 }
