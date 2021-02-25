@@ -2,7 +2,7 @@
 {
     public interface IDoor
     {
-        void Open();
-        void Close();
+        bool Open();
+        bool Close();
     }
 }
