@@ -3,13 +3,15 @@
     public class Door : IDoor
     {
         public bool DoorIsOpen { get; private set; } = false;
-        public void Open()
+        public bool Open()
         {
             DoorIsOpen = true;
+            return true;
         }
-        public void Close()
+        public bool Close()
         {
             DoorIsOpen = false;
+            return true;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DoorControlSystem
+﻿using System;
+
+namespace DoorControlSystem
 {
     public enum States 
     {
@@ -30,9 +32,15 @@
             if (_validation.ValidateEntryRequest(id))
             {
                 _state = States.DoorOpening;
-                _door.Open();
-                _entryNotification.NotifyEntryGranted(id);
-                //Door Opening
+                if (_door.Open())
+                {
+                    _entryNotification.NotifyEntryGranted(id);
+                }
+                else
+                {
+                    _state = States.DoorClosed;
+                    throw new Exception("Door couldnt open");
+                }
             }
             else
             {
