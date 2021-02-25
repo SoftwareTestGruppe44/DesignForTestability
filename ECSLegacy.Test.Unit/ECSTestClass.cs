@@ -10,15 +10,13 @@ namespace ECSLegacy.Test.Unit
         private ECS _ecsSystem;
         private FakeHeater _heater;
         private FakeTempSensor _tempSensor;
-        private FakeWindow _window;
 
         [SetUp]
         public void Setup()
         {
             _tempSensor = new FakeTempSensor();
             _heater = new FakeHeater();
-            _window = new FakeWindow();
-            _ecsSystem = new ECS(10,20, _tempSensor, _heater, _window);
+            _ecsSystem = new ECS(10, _tempSensor, _heater);
         }
 
         [Category("Set/Get Threshold")]
@@ -48,7 +46,7 @@ namespace ECSLegacy.Test.Unit
             Assert.AreEqual(_ecsSystem.GetCurTemp(), temp);
         }
 
-        [Category("Regulate - Heater off")]
+        [Category("Regulate")]
         [TestCase(10, 10), Description("Temperature is equal to threshold")]
         [TestCase(11, 10)]
         [TestCase(20, 0)]
@@ -64,7 +62,7 @@ namespace ECSLegacy.Test.Unit
             Assert.AreEqual(_heater.HeaterOn, false);
         }
 
-        [Category("Regulate - Heater on")]
+        [Category("Regulate")]
         [TestCase(8, 10)]
         [TestCase(-4, 0)]
         [TestCase(-10, -5)]
@@ -77,36 +75,6 @@ namespace ECSLegacy.Test.Unit
             _ecsSystem.Regulate();
             //Assert
             Assert.AreEqual(_heater.HeaterOn, true);
-        }
-
-        [Category("Regulate - window closed")]
-        [TestCase(20), Description("temp on Threshold")]
-        [TestCase(15)]
-        [TestCase(0)]
-        [TestCase(-10)]
-        public void Regulate_TemperatureUnderWindowThreshold_ECSWindowClosed(int temp)
-        {
-            //Arrange
-            _tempSensor.Temp = temp;
-
-            //Act
-            _ecsSystem.Regulate();
-            //Assert
-            Assert.AreEqual(_window.WindowOpen, false);
-        }
-
-        [Category("Regulate - window open")]
-        [TestCase(25)]
-        [TestCase(100)]
-        public void Regulate_TemperatureOverWindowThreshold_ECSWindowOpen(int temp)
-        {
-            //Arrange
-            _tempSensor.Temp = temp;
-
-            //Act
-            _ecsSystem.Regulate();
-            //Assert
-            Assert.AreEqual(_window.WindowOpen, true);
         }
     }
 }
