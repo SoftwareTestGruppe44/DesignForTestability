@@ -5,17 +5,17 @@ using System.Runtime.InteropServices.ComTypes;
 namespace DoorControlSystem
 {
     public class UserValidation
-    { 
-        List<int> idList = new List<int>();
+    {
+        readonly List<int> _idList = new List<int>();
 
         bool ValidateEntryRequest(int id)
         {
-            return idList.Contains(id);
+            return _idList.Contains(id);
         }
 
         void AddId(int id)
         {
-            idList.Add(id);
+            _idList.Add(id);
         }
     }
 }
