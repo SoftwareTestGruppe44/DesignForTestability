@@ -4,7 +4,7 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace DoorControlSystem
 {
-    public class UserValidation
+    public class UserValidation : IUserValidation
     {
         readonly List<int> _idList = new List<int>();
 
