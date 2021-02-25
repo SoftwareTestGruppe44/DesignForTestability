@@ -21,6 +21,7 @@ namespace DoorControlSystem
         public DoorControl(IAlarm alarm, IDoor door, IEntryNotification notification, IUserValidation validation)
         {
             _door = door;
+            _door.Control = this;
             _entryNotification = notification;
             _alarm = alarm;
             _validation = validation;
@@ -33,15 +34,8 @@ namespace DoorControlSystem
             if (_validation.ValidateEntryRequest(id))
             {
                 _state = States.DoorOpening;
-                if (_door.Open())
-                {
-                    _entryNotification.NotifyEntryGranted(id);
-                }
-                else
-                {
-                    _state = States.DoorClosed;
-                    throw new Exception("Door couldnt open");
-                }
+                _entryNotification.NotifyEntryGranted(id);
+                _door.Open();
             }
             else
             {
@@ -51,8 +45,15 @@ namespace DoorControlSystem
 
         public void DoorOpened()
         {
-            _door.Close();
-            _state = States.DoorClosing;
+            if (_door.Close())
+            {
+                _state = States.DoorClosing;
+            }
+            else
+            {
+                _state = States.DoorBreached;
+                _alarm.RaiseAlarm();
+            }
         }
 
         public void DoorClosed()
