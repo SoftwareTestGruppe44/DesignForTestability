@@ -27,12 +27,12 @@
         public void RequestEntry(int id)
         {
             //User validation
-            if (_validation)
+            if (_validation.ValidateEntryRequest(id))
             {
+                _state = States.DoorOpening;
                 _door.Open();
                 _entryNotification.NotifyEntryGranted(id);
                 //Door Opening
-                _state = States.DoorOpening;
             }
             else
             {
@@ -44,6 +44,18 @@
         {
             _door.Close();
             _state = States.DoorClosing;
+        }
+
+        public void DoorClosed()
+        {
+            _state = States.DoorClosed;
+        }
+
+        public void DoorBreached()
+        {
+            _door.Close();
+            _alarm.RaiseAlarm();
+            _state = States.DoorBreached;
         }
     }
 }
