@@ -13,10 +13,10 @@
         private IDoor _door;
         private IEntryNotification _entryNotification;
         private IAlarm _alarm;
-        private UserValidation _validation;
+        private IUserValidation _validation;
         private States _state;
 
-        public DoorControl(IAlarm alarm, IDoor door, IEntryNotification notification, UserValidation validation)
+        public DoorControl(IAlarm alarm, IDoor door, IEntryNotification notification, IUserValidation validation)
         {
             _door = door;
             _entryNotification = notification;
