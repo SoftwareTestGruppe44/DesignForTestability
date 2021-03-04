@@ -21,11 +21,12 @@ namespace ECSLegacy.Test.Unit
             _ecsSystem = new ECS(10, 20,_tempSensor, _heater, _window);
         }
 
-        [Category("Set/Get Threshold")]
-        [TestCase(15)]
-        [TestCase(5)]
+        [Category("Set/Get Threshold")] 
+        [TestCase(Int32.MaxValue)]
+        [TestCase(1)]
         [TestCase(0)]
-        [TestCase(-5)]
+        [TestCase(-1)]
+        [TestCase(Int32.MinValue)]
         public void SetAndGetThreshold_ChangeThreshold_ThresholdChanged(int threshold)
         {
             //Arrange
@@ -35,10 +36,13 @@ namespace ECSLegacy.Test.Unit
             Assert.AreEqual(_ecsSystem.GetThreshold(), threshold);
         }
 
+
         [Category("GetCurTemp")]
-        [TestCase(10)]
+        [TestCase(Int32.MaxValue)]
+        [TestCase(1)]
         [TestCase(0)]
-        [TestCase(-10)]
+        [TestCase(-1)]
+        [TestCase(Int32.MinValue)]
         public void GetCurTemp_ChangeTemperatureAndGet_ReturnCorrectTemp(int temp)
         {
             //Arrange
@@ -51,8 +55,9 @@ namespace ECSLegacy.Test.Unit
         [Category("Regulate")]
         [TestCase(10, 10), Description("Temperature is equal to threshold")]
         [TestCase(11, 10)]
+        [TestCase(0, -1)]
         [TestCase(20, 0)]
-        [TestCase(30, -5)]
+        [TestCase(-4, -5)]
         public void Regulate_TemperatureOverThreshold_ECSTurnOffHeater(int temp, int threshold)
         {
             //Arrange
@@ -65,9 +70,10 @@ namespace ECSLegacy.Test.Unit
         }
 
         [Category("Regulate")]
-        [TestCase(8, 10)]
-        [TestCase(-4, 0)]
-        [TestCase(-10, -5)]
+        [TestCase(9, 10)]
+        [TestCase(0, 1)]
+        [TestCase(-1, 0)]
+        [TestCase(-6, -5)]
         public void Regulate_TemperatureUnderThreshold_ECSTurnOnHeater(int temp, int threshold)
         {
             //Arrange
