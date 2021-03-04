@@ -16,15 +16,25 @@ namespace ECSLegacy.Test.Unit
         public void GetTemp_GetCurrentTemp_IsWithinCorrectInterval()
         {
             //Arrange
-            bool correct = true;
+            var correct = true;
+            var min = false;
+            var max = false;
             //Act
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 1000000; i++)
             {
                 var temp = _tempSensor.GetTemp();
-                correct = correct && (temp >= -5 && temp <= 45);
+                correct = correct && (temp >= -5 && temp < 45);
+                if (temp == -5)
+                {
+                    min = true;
+                }
+                if (temp == 44)
+                {
+                    max = true;
+                }
             }
             //Assert
-            Assert.IsTrue(correct);
+            Assert.IsTrue(correct&&min&&max);
         }
     }
 }
